@@ -1,0 +1,57 @@
+diff -ruaN apache-ambari-2.5.0-src.orig/ambari-server/src/main/resources/common-services/HDFS/2.1.0.2.0/metainfo.xml apache-ambari-2.5.0-src/ambari-server/src/main/resources/common-services/HDFS/2.1.0.2.0/metainfo.xml
+--- apache-ambari-2.5.0-src.orig/ambari-server/src/main/resources/common-services/HDFS/2.1.0.2.0/metainfo.xml	2017-03-27 20:46:36.000000000 -0400
++++ apache-ambari-2.5.0-src/ambari-server/src/main/resources/common-services/HDFS/2.1.0.2.0/metainfo.xml	2017-06-12 11:11:39.248472197 -0400
+@@ -271,13 +271,13 @@
+         </osSpecific>
+ 
+         <osSpecific>
+-          <osFamily>debian7,ubuntu12,ubuntu14,ubuntu16</osFamily>
++          <osFamily>debian7,ubuntu12,ubuntu14</osFamily>
+           <packages>
+             <package>
+               <name>hadoop-client</name>
+             </package>
+             <package>
+-              <name>libsnappy1</name>
++              <name>libsnappy1*</name>
+             </package>
+             <package>
+               <name>libsnappy-dev</name>
+@@ -298,7 +298,36 @@
+             </package>
+           </packages>
+         </osSpecific>
+-            
++
++        <osSpecific>
++          <osFamily>ubuntu16</osFamily>
++          <packages>
++            <package>
++              <name>hadoop-client</name>
++            </package>
++            <package>
++              <name>libsnappy1v5*</name>
++            </package>
++            <package>
++              <name>libsnappy-dev</name>
++            </package>
++            <package>
++              <name>liblzo2-2</name>
++              <skipUpgrade>true</skipUpgrade>
++              <condition>should_install_lzo</condition>
++            </package>
++            <package>
++              <name>hadoop-hdfs</name>
++            </package>
++            <package>
++              <name>libhdfs0</name>
++            </package>
++            <package>
++              <name>libhdfs0-dev</name>
++            </package>
++          </packages>
++        </osSpecific>
++
+       </osSpecifics>
+ 
+       <commandScript>
