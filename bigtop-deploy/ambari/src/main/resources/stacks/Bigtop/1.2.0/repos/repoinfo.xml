@@ -16,6 +16,13 @@
    limitations under the License.
 -->
 <reposinfo>
+  <os family="redhat6">
+    <repo>
+      <baseurl>http://bigtop-repos.s3.amazonaws.com/releases/1.2.0/centos/6/x86_64</baseurl>
+      <repoid>BIGTOP-1.2.0</repoid>
+      <reponame>bigtop</reponame>
+    </repo>
+  </os>
   <os family="redhat7">
     <repo>
       <baseurl>http://bigtop-repos.s3.amazonaws.com/releases/1.2.0/centos/7/x86_64</baseurl>
