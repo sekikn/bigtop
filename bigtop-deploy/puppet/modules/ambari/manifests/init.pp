@@ -35,7 +35,7 @@ class ambari {
 
     exec {
         "server setup":
-           command => "/usr/sbin/ambari-server setup -s",
+           command => '/usr/sbin/ambari-server setup -s -j $(/bin/bash -c "source /usr/lib/bigtop-utils/bigtop-detect-javahome ; echo \$JAVA_HOME")',
            require => [ Package["ambari-server"], Exec["mpack install"] ]
     }
 

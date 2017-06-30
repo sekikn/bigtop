@@ -23,7 +23,7 @@ Homepage: http://ambari.apache.org/
 
 Package: ambari-server
 Architecture: all
-Depends: openssl, postgresql (>= 8.1), python (>= 2.6), curl
+Depends: openssl, postgresql (>= 8.1), python (>= 2.6), curl, bigtop-utils (>= 0.7)
 Description: Ambari Server 
 
 Package: ambari-agent

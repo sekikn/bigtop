@@ -70,7 +70,7 @@ AMBARI_VERSION=%{ambari_version} bash $RPM_SOURCE_DIR/install_ambari.sh \
 %package server
 Summary: Ambari Server
 Group: Development/Libraries
-Requires: openssl, postgresql-server >= 8.1, python >= 2.6, curl
+Requires: openssl, postgresql-server >= 8.1, python >= 2.6, curl, bigtop-utils >= 0.7
 AutoProv: no
 AutoReqProv: no
 %description server
