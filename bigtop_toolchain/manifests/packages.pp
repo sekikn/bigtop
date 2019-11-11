@@ -33,10 +33,13 @@ class bigtop_toolchain::packages {
         "createrepo",
         "lzo-devel",
         "fuse-devel",
-        "cppunit-devel",
+#        "cppunit-devel",
         "openssl-devel",
-        "python-devel",
+#        "python-devel",
+        "python2-devel",
+        "python36-devel",
         "python2-pip",
+        "python3-pip",
         "libxml2-devel",
         "libxslt-devel",
         "cyrus-sasl-devel",
@@ -48,16 +51,17 @@ class bigtop_toolchain::packages {
         "fuse-libs",
         "asciidoc",
         "xmlto",
-        "libyaml-devel",
+#        "libyaml-devel",
         "gmp-devel",
-        "snappy-devel",
+#        "snappy-devel",
+        "snappy",
         "boost-devel",
         "xfsprogs-devel",
         "libuuid-devel",
         "bzip2-devel",
         "readline-devel",
         "ncurses-devel",
-        "libidn-devel",
+#        "libidn-devel",
         "libcurl-devel",
         "libevent-devel",
         "apr-devel",
@@ -225,7 +229,8 @@ class bigtop_toolchain::packages {
   # Install Python packages using pip
   case $operatingsystem{
     /(?i:(centos|fedora|redhat))/: {
-      $pip = 'python2-pip'
+      #$pip = 'python2-pip'
+      $pip = 'python3-pip'
     } /(?i:(SLES|opensuse))/: { 
       $pip = 'python-pip'
     } /Amazon/: { 
@@ -236,7 +241,7 @@ class bigtop_toolchain::packages {
   }
   file { '/usr/bin/pip-python':
     ensure => 'link',
-    target => '/usr/bin/pip',
+    target => '/usr/bin/pip3',
   }
   package { 'setuptools':
     ensure => 'latest',
