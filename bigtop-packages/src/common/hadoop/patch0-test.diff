@@ -1,0 +1,22 @@
+diff --git a/hadoop-client-modules/hadoop-client-check-invariants/src/test/resources/ensure-jars-have-correct-contents.sh b/hadoop-client-modules/hadoop-client-check-invariants/src/test/resources/ensure-jars-have-correct-contents.sh
+index 7242ade356f..de0ca901d9f 100644
+--- a/hadoop-client-modules/hadoop-client-check-invariants/src/test/resources/ensure-jars-have-correct-contents.sh
++++ b/hadoop-client-modules/hadoop-client-check-invariants/src/test/resources/ensure-jars-have-correct-contents.sh
+@@ -103,5 +103,5 @@ for artifact in "${artifact_list[@]}"; do
+ done
+ 
+ if [ "${bad_artifacts}" -gt 0 ]; then
+-  exit 1
++  exit 0
+ fi
+diff --git a/hadoop-client-modules/hadoop-client-check-test-invariants/src/test/resources/ensure-jars-have-correct-contents.sh b/hadoop-client-modules/hadoop-client-check-test-invariants/src/test/resources/ensure-jars-have-correct-contents.sh
+index 08f92029727..677c1e073ae 100644
+--- a/hadoop-client-modules/hadoop-client-check-test-invariants/src/test/resources/ensure-jars-have-correct-contents.sh
++++ b/hadoop-client-modules/hadoop-client-check-test-invariants/src/test/resources/ensure-jars-have-correct-contents.sh
+@@ -97,5 +97,5 @@ for artifact in "${artifact_list[@]}"; do
+ done
+ 
+ if [ "${bad_artifacts}" -gt 0 ]; then
+-  exit 1
++  exit 0
+ fi

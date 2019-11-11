@@ -457,6 +457,8 @@ Requires: fuse-libs
 %description hdfs-fuse
 These projects (enumerated below) allow HDFS to be mounted (on most flavors of Unix) as a standard file system using
 
+# avoid error: Empty %%files file /home/ec2-user/bigtop/build/hadoop/rpm/BUILD/hadoop-3.2.1-src/debugsourcefiles.list
+%global debug_package %{nil}
 
 %prep
 %setup -n %{name}-%{hadoop_base_version}-src
@@ -608,7 +610,7 @@ fi
 %config(noreplace) /etc/security/limits.d/yarn.conf
 %{lib_hadoop}/libexec/yarn-config.sh
 %{lib_yarn}
-%attr(4754,root,yarn) %{lib_yarn}/bin/container-executor
+# %%attr(4754,root,yarn) %%{lib_yarn}/bin/container-executor
 %{bin_hadoop}/yarn
 %attr(0775,yarn,hadoop) %{run_yarn}
 %attr(0775,yarn,hadoop) %{log_yarn}
@@ -635,7 +637,7 @@ fi
 %config(noreplace) %{etc_hadoop}/conf.empty/mapred-site.xml
 %config(noreplace) %{etc_hadoop}/conf.empty/mapred-env.sh
 %config(noreplace) %{etc_hadoop}/conf.empty/mapred-queues.xml.template
-%config(noreplace) %{etc_hadoop}/conf.empty/mapred-site.xml.template
+# %%config(noreplace) %%{etc_hadoop}/conf.empty/mapred-site.xml.template
 %config(noreplace) /etc/security/limits.d/mapreduce.conf
 %{lib_mapreduce}
 %{lib_hadoop}/libexec/mapred-config.sh
@@ -649,10 +651,11 @@ fi
 %files
 %defattr(-,root,root)
 %config(noreplace) %{etc_hadoop}/conf.empty/core-site.xml
-%config(noreplace) %{etc_hadoop}/conf.empty/hadoop-metrics.properties
+# %%config(noreplace) %%{etc_hadoop}/conf.empty/hadoop-metrics.properties
 %config(noreplace) %{etc_hadoop}/conf.empty/hadoop-metrics2.properties
 %config(noreplace) %{etc_hadoop}/conf.empty/log4j.properties
-%config(noreplace) %{etc_hadoop}/conf.empty/slaves
+# %%config(noreplace) %%{etc_hadoop}/conf.empty/slaves
+%config(noreplace) %{etc_hadoop}/conf.empty/workers
 %config(noreplace) %{etc_hadoop}/conf.empty/ssl-client.xml.example
 %config(noreplace) %{etc_hadoop}/conf.empty/ssl-server.xml.example
 %config(noreplace) %{etc_hadoop}/conf.empty/configuration.xsl
@@ -663,7 +666,7 @@ fi
 %config(noreplace) %{etc_hadoop}/conf.empty/kms-log4j.properties
 %config(noreplace) %{etc_hadoop}/conf.empty/kms-site.xml
 %config(noreplace) /etc/default/hadoop
-/etc/bash_completion.d/hadoop
+#/etc/bash_completion.d/hadoop
 %{lib_hadoop}/*.jar
 %{lib_hadoop}/lib
 %{lib_hadoop}/sbin
@@ -671,31 +674,31 @@ fi
 %{lib_hadoop}/etc
 %{lib_hadoop}/libexec/hadoop-config.sh
 %{lib_hadoop}/libexec/hadoop-layout.sh
-%{lib_hadoop}/libexec/kms-config.sh
+# %%{lib_hadoop}/libexec/kms-config.sh
 %{bin_hadoop}/hadoop
-%{man_hadoop}/man1/hadoop.1.*
-%{man_hadoop}/man1/yarn.1.*
-%{man_hadoop}/man1/hdfs.1.*
-%{man_hadoop}/man1/mapred.1.*
+#%%{man_hadoop}/man1/hadoop.1.*
+#%%{man_hadoop}/man1/yarn.1.*
+#%%{man_hadoop}/man1/hdfs.1.*
+#%%{man_hadoop}/man1/mapred.1.*
 
 # Shouldn't the following be moved to hadoop-hdfs?
-%exclude %{lib_hadoop}/bin/fuse_dfs
+# %%exclude %%{lib_hadoop}/bin/fuse_dfs
 
-%files doc
-%defattr(-,root,root)
-%doc %{doc_hadoop}
+# %%files doc
+# %%defattr(-,root,root)
+# %%doc %%{doc_hadoop}
 
-%files httpfs
-%defattr(-,root,root)
-%config(noreplace) %{etc_httpfs}
-%config(noreplace) /etc/default/%{name}-httpfs
-%{lib_hadoop}/libexec/httpfs-config.sh
-%{initd_dir}/%{name}-httpfs
-%{lib_httpfs}
-%attr(0775,httpfs,httpfs) %{run_httpfs}
-%attr(0775,httpfs,httpfs) %{log_httpfs}
-%attr(0775,httpfs,httpfs) %{state_httpfs}
-
+# %%files httpfs
+# %%defattr(-,root,root)
+# %%config(noreplace) %%{etc_httpfs}
+# %%config(noreplace) /etc/default/%%{name}-httpfs
+# %%{lib_hadoop}/libexec/httpfs-config.sh
+# %%{initd_dir}/%%{name}-httpfs
+# %%{lib_httpfs}
+# %%attr(0775,httpfs,httpfs) %%{run_httpfs}
+# %%attr(0775,httpfs,httpfs) %%{log_httpfs}
+# %%attr(0775,httpfs,httpfs) %%{state_httpfs}
+# 
 # Service file management RPMs
 %define service_macro() \
 %files %1 \
@@ -749,12 +752,11 @@ fi
 
 %files libhdfs-devel
 %{_includedir}/hdfs.h
-#%doc %{_docdir}/libhdfs-%{hadoop_version}
+# %%doc %%{_docdir}/libhdfs-%%{hadoop_version}
 
-%files hdfs-fuse
-%defattr(-,root,root)
-%attr(0644,root,root) %config(noreplace) /etc/default/hadoop-fuse
-%attr(0755,root,root) %{lib_hadoop}/bin/fuse_dfs
-%attr(0755,root,root) %{bin_hadoop}/hadoop-fuse-dfs
-
+# %%files hdfs-fuse
+# %%defattr(-,root,root)
+# %%attr(0644,root,root) %%config(noreplace) /etc/default/hadoop-fuse
+# %%attr(0755,root,root) %%{lib_hadoop}/bin/fuse_dfs
+# %%attr(0755,root,root) %%{bin_hadoop}/hadoop-fuse-dfs
 
