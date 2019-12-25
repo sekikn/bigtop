@@ -1,18 +1,5 @@
-From f10ec9f9bec56bcfa5e2015ea87a8a5054d096c5 Mon Sep 17 00:00:00 2001
-From: Anton Chevychalov <pub@mnu.pp.ru>
-Date: Tue, 5 Sep 2017 15:14:19 +0300
-Subject: [PATCH] [PATCH] HADOOP-12366. expose calculated paths
-
-Adapted the patch to apply cleanly on branch-2.8.1
----
- hadoop-common-project/hadoop-common/src/main/bin/hadoop | 10 ++++++++++
- hadoop-hdfs-project/hadoop-hdfs/src/main/bin/hdfs       |  9 +++++++++
- hadoop-mapreduce-project/bin/mapred                     |  9 +++++++++
- hadoop-yarn-project/hadoop-yarn/bin/yarn                |  9 +++++++++
- 4 files changed, 37 insertions(+)
-
 diff --git a/hadoop-common-project/hadoop-common/src/main/bin/hadoop b/hadoop-common-project/hadoop-common/src/main/bin/hadoop
-index 1575996..44be2e3 100755
+index 74bf2d92612..0a6980588d9 100755
 --- a/hadoop-common-project/hadoop-common/src/main/bin/hadoop
 +++ b/hadoop-common-project/hadoop-common/src/main/bin/hadoop
 @@ -38,6 +38,7 @@ function print_usage(){
@@ -40,18 +27,18 @@ index 1575996..44be2e3 100755
        CLASS=org.apache.hadoop.tools.HadoopArchives
        CLASSPATH=${CLASSPATH}:${TOOL_PATH}
 diff --git a/hadoop-hdfs-project/hadoop-hdfs/src/main/bin/hdfs b/hadoop-hdfs-project/hadoop-hdfs/src/main/bin/hdfs
-index fbfbaf2..714280e 100755
+index b306698126c..45d9bb1b1e8 100755
 --- a/hadoop-hdfs-project/hadoop-hdfs/src/main/bin/hdfs
 +++ b/hadoop-hdfs-project/hadoop-hdfs/src/main/bin/hdfs
-@@ -47,6 +47,7 @@ function print_usage(){
-   echo "  datanode             run a DFS datanode"
-   echo "  debug                run a Debug Admin to execute HDFS debug commands"
+@@ -49,6 +49,7 @@ function print_usage(){
    echo "  dfsadmin             run a DFS admin client"
+   echo "  dfsrouter            run the DFS router"
+   echo "  dfsrouteradmin       manage Router-based federation"
 +  echo "  envvars              display computed Hadoop environment variables"
    echo "  haadmin              run a DFS HA admin client"
    echo "  fsck                 run a DFS filesystem checking utility"
    echo "  balancer             run a cluster balancing utility"
-@@ -161,6 +162,14 @@ elif [ "$COMMAND" = "haadmin" ] ; then
+@@ -175,6 +176,14 @@ elif [ "$COMMAND" = "haadmin" ] ; then
    CLASS=org.apache.hadoop.hdfs.tools.DFSHAAdmin
    CLASSPATH=${CLASSPATH}:${TOOL_PATH}
    HADOOP_OPTS="$HADOOP_OPTS $HADOOP_CLIENT_OPTS"
@@ -67,7 +54,7 @@ index fbfbaf2..714280e 100755
    CLASS=org.apache.hadoop.hdfs.tools.DFSck
    HADOOP_OPTS="$HADOOP_OPTS $HADOOP_CLIENT_OPTS"
 diff --git a/hadoop-mapreduce-project/bin/mapred b/hadoop-mapreduce-project/bin/mapred
-index 6f3bc04..fd1300d 100755
+index 6f3bc04baf9..fd1300d67f7 100755
 --- a/hadoop-mapreduce-project/bin/mapred
 +++ b/hadoop-mapreduce-project/bin/mapred
 @@ -38,6 +38,7 @@ function print_usage(){
@@ -94,10 +81,10 @@ index 6f3bc04..fd1300d 100755
    CLASS=org.apache.hadoop.mapreduce.v2.hs.JobHistoryServer
    HADOOP_OPTS="$HADOOP_OPTS -Dmapred.jobsummary.logger=${HADOOP_JHS_LOGGER:-INFO,console} $HADOOP_JOB_HISTORYSERVER_OPTS"
 diff --git a/hadoop-yarn-project/hadoop-yarn/bin/yarn b/hadoop-yarn-project/hadoop-yarn/bin/yarn
-index 552cef4..5495387 100644
+index 892d15f2f45..1897f5f484c 100644
 --- a/hadoop-yarn-project/hadoop-yarn/bin/yarn
 +++ b/hadoop-yarn-project/hadoop-yarn/bin/yarn
-@@ -89,6 +89,7 @@ function print_usage(){
+@@ -92,6 +92,7 @@ function print_usage(){
    echo "  cluster                               prints cluster information"
    echo "  daemonlog                             get/set the log level for each"
    echo "                                        daemon"
@@ -105,7 +92,7 @@ index 552cef4..5495387 100644
    echo "  top                                   run cluster usage tool"
    echo ""
    echo "Most commands print help when invoked w/o parameters."
-@@ -217,6 +218,14 @@ if [ "$COMMAND" = "classpath" ] ; then
+@@ -223,6 +224,14 @@ if [ "$COMMAND" = "classpath" ] ; then
      echo $CLASSPATH
      exit 0
    fi
@@ -120,6 +107,3 @@ index 552cef4..5495387 100644
  elif [ "$COMMAND" = "rmadmin" ] ; then
    CLASS='org.apache.hadoop.yarn.client.cli.RMAdminCLI'
    YARN_OPTS="$YARN_OPTS $YARN_CLIENT_OPTS"
--- 
-2.7.4
-
