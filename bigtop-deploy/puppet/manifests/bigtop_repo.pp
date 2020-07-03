@@ -57,6 +57,19 @@ class bigtop_repo {
             ensure => present,
          }
        }
+       # This is a JDK-related stuff, but it looks like it should be here
+       # to avoid cyclic resource dependencies.
+       if ($operatingsystem == "Debian" and $operatingsystemmajrelease !~ /^\d$/) {
+         $jdk_preinstalled = hiera("bigtop::jdk_preinstalled", false)
+         apt::source { 'adoptopenjdk':
+           location => 'https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/',
+           key      => {
+             id     => '8ED17AF5D7E675EB3EE3BCE98AC3B29174885C03',
+             source => 'https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public',
+           },
+           noop => $jdk_preinstalled,
+         }
+       }
       # It seems that calling update explicitely isn't needed because as far I can see
       # it is getting called automatically. Perhaps this was needed for older versions?
        exec {'bigtop-apt-update':
