@@ -56,9 +56,16 @@ class bigtop_repo {
             pin => "900",
             ensure => present,
          }
+         # BIGTOP-3277. Addressing the case that the distro provides a package with the same name and higher version.
+         # Update (or simply remove, if possible) it if zookeeper will be upgraded in the future release.
+         apt::pin { "Bigtop_zk_$count":
+            packages => "zookeeper",
+            version => "3.4.13-1",
+            priority => "900",
+         }
        }
-       # This is a JDK-related stuff, but it looks like it should be here
-       # to avoid cyclic resource dependencies.
+       # This is a JDK-related stuff and supposed to be in jdk.pp,
+       # but it looks like it have to be here to avoid cyclic resource dependencies.
        if ($operatingsystem == "Debian" and $operatingsystemmajrelease !~ /^\d$/) {
          $jdk_preinstalled = hiera("bigtop::jdk_preinstalled", false)
          apt::source { 'adoptopenjdk':
