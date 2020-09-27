@@ -51,7 +51,7 @@ export KIBANA_HOME=${KIBANA_HOME:-/usr/lib/kibana}
 export LIVY_HOME=${LIVY_HOME:-/usr/lib/livy}
 export LOGSTASH_HOME=${LOGSTASH_HOME:-/usr/lib/logstash}
 export MAHOUT_HOME=${MAHOUT_HOME:-/usr/lib/mahout}
-export OOZIE_TAR_HOME=${OOZIE_TAR_HOME:-/usr/share/doc/oozie}
+export OOZIE_TAR_HOME=${OOZIE_TAR_HOME:-/usr/lib/oozie}
 export OOZIE_URL=${OOZIE_URL:-http://localhost:11000/oozie}
 export SPARK_HOME=${SPARK_HOME:-/usr/lib/spark}
 export SQOOP_HOME=${SQOOP_HOME:-/usr/lib/sqoop}
@@ -79,6 +79,13 @@ fi
 if [[ $SMOKE_TESTS == *"alluxio"* ]]; then
     su -s /bin/bash $HCFS_USER -c "$HADOOP_COMMAND fs -mkdir /underFSStorage"
     su -s /bin/bash $HCFS_USER -c "$HADOOP_COMMAND fs -chmod 777 /underFSStorage"
+fi
+
+if [[ $SMOKE_TESTS == *"oozie"* ]]; then
+    su -s /bin/bash $HCFS_USER -c "$HADOOP_COMMAND fs -mkdir -p /user/oozie/share/lib"
+    su -s /bin/bash $HCFS_USER -c "$HADOOP_COMMAND fs -chown -R oozie:oozie /user/oozie"
+    oozie-setup sharelib create -fs hdfs://$(hostname -f):8020/
+    oozie admin -sharelibupdate
 fi
 
 ALL_SMOKE_TASKS=""
