@@ -197,19 +197,16 @@ fi
 %files
 %defattr(-,root,root)
 %config(noreplace) %{conf_oozie_dist}
-%config(noreplace) %{tomcat_conf_oozie}.*
 %{usr_bin}/oozie-setup
 %{lib_oozie}/bin/oozie-sys.sh
 %{lib_oozie}/bin/oozie-env.sh
 %{lib_oozie}/bin/oozied.sh
 %{lib_oozie}/bin/ooziedb.sh
 %{lib_oozie}/bin/oozie-setup.sh
-%{lib_oozie}/webapps
 %{lib_oozie}/libtools
 %{lib_oozie}/lib
 %{lib_oozie}/oozie-sharelib.tar.gz
 %{lib_oozie}/libext
-%{lib_oozie}/tomcat-deployment.sh
 %{initd_dir}/oozie
 %defattr(-, oozie, oozie)
 %dir %{_sysconfdir}/%{name}
