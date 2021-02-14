@@ -53,7 +53,7 @@ index 828dfaa..47cc5de 100644
  
 -    <action name="pig-node">
 -        <pig>
--            <job-tracker>${jobTracker}</job-tracker>
+-            <resource-manager>${resourceManager}</resource-manager>
 -            <name-node>${nameNode}</name-node>
 -            <prepare>
 -                <delete path="${nameNode}/user/${wf:user()}/${examplesRoot}/output-data/custom-main/pig-node"/>
@@ -133,7 +133,7 @@ index 53e94ea..0000000
 -#
 -
 -nameNode=hdfs://localhost:8020
--jobTracker=localhost:8021
+-resourceManager=localhost:8032
 -queueName=default
 -examplesRoot=examples
 -
@@ -163,11 +163,11 @@ index 8da2b66..0000000
 -  See the License for the specific language governing permissions and
 -  limitations under the License.
 --->
--<workflow-app xmlns="uri:oozie:workflow:0.2" name="pig-wf">
+-<workflow-app xmlns="uri:oozie:workflow:1.0" name="pig-wf">
 -    <start to="pig-node"/>
 -    <action name="pig-node">
 -        <pig>
--            <job-tracker>${jobTracker}</job-tracker>
+-            <resource-manager>${resourceManager}</resource-manager>
 -            <name-node>${nameNode}</name-node>
 -            <prepare>
 -                <delete path="${nameNode}/user/${wf:user()}/${examplesRoot}/output-data/pig"/>
@@ -228,7 +228,7 @@ diff --git a/pom.xml b/pom.xml
 index 5d92d77..d8fa9ae 100644
 --- a/pom.xml
 +++ b/pom.xml
-@@ -481,6 +481,10 @@
+@@ -547,6 +547,10 @@
                          <groupId>org.apache.hive</groupId>
                          <artifactId>hive-cli</artifactId>
                      </exclusion>
@@ -236,10 +236,10 @@ index 5d92d77..d8fa9ae 100644
 +                        <groupId>org.apache.logging.log4j</groupId>
 +                        <artifactId>log4j-1.2-api</artifactId>
 +                    </exclusion>
-                 </exclusions>
-             </dependency>
- 
-@@ -1403,6 +1407,12 @@
+                     <exclusion>
+                         <groupId>joda-time</groupId>
+                         <artifactId>joda-time</artifactId>
+@@ -1506,6 +1510,12 @@
                  <artifactId>hive-exec</artifactId>
                  <version>${hive.version}</version>
                  <classifier>${hive.classifier}</classifier>
@@ -262,9 +262,9 @@ index 9f8aff1..538641f 100644
          <module>hcatalog</module>
 -        <module>pig</module>
 +        <!--<module>pig</module>-->
+         <module>git</module>
          <module>hive</module>
          <module>hive2</module>
-         <module>sqoop</module>
 diff --git a/webapp/pom.xml b/webapp/pom.xml
 index dc2298c..4aea7f3 100644
 --- a/webapp/pom.xml

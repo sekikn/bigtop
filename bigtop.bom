@@ -220,12 +220,14 @@ bigtop {
     'oozie' {
       name    = 'oozie'
       relNotes = 'Apache Oozie'
-      version { base = '4.3.0'; pkg = base; release = 1 }
+      version { base = '5.2.1'; pkg = base; release = 1 }
       tarball { destination = "$name-${version.base}.tar.gz"
                 source      = destination }
-      url     { download_path = "/$name/${version.base}/"
-                site = "${apache.APACHE_MIRROR}/${download_path}"
-                archive = "${apache.APACHE_ARCHIVE}/${download_path}" }
+      git {
+        repo = "https://github.com/apache/oozie.git"
+        ref = "release-${version.base}-rc1"
+        dir  = "${name}-release-${version.pkg}-rc1"
+      }
     }
     'mahout' {
       name    = 'mahout'

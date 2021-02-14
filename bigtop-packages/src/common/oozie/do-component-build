@@ -83,8 +83,9 @@ sed -i.bak "/http:\/\/repository.codehaus.org/a\\
             </releases>" ${WORKDIR}/pom.xml
 
 export MAVEN_OPTS="-Xmx2g"
+export JACKSON_VERSION=2.12.1
 # Invoke Oozie build script
-${WORKDIR}/bin/mkdistro.sh -DjavaVersion=${JDK_VERSION} -DtargetJavaVersion=${JDK_VERSION} -DsourceJavaVersion=${JDK_VERSION} -DminJavaVersion=${JDK_VERSION} -DskipTests -Phadoop-2 -Pspark-2 -Puber -Dhadoop.version=${HADOOP_VERSION} -Dhadoop.auth.version=${HADOOP_VERSION} -Dhive.version=${HIVE_VERSION} -Dsqoop.version=${SQOOP_VERSION} -Dspark.version=${SPARK_VERSION} -Dspark.scala.binary.version=${SCALA_VERSION%.*} ${EXTRA_GOALS} -Dmaven.repo.local=${HOME}/.m2/repository "$@"
+${WORKDIR}/bin/mkdistro.sh -DjavaVersion=${JDK_VERSION} -DtargetJavaVersion=${JDK_VERSION} -DsourceJavaVersion=${JDK_VERSION} -DminJavaVersion=${JDK_VERSION} -DskipTests -Phadoop-3 -Puber -Ptez -Dhadoop.version=${HADOOP_VERSION} -Dhive.version=${HIVE_VERSION} -Dsqoop.version=${SQOOP_VERSION} -Dspark.version=${SPARK_VERSION} -Dspark.scala.binary.version=${SCALA_VERSION%.*} -Dtez.version=${TEZ_VERSION} -Djackson.version=${JACKSON_VERSION} ${EXTRA_GOALS} -Dmaven.repo.local=${HOME}/.m2/repository "$@"
 MKDISTRO_RESULT=$?
 if [ "${MKDISTRO_RESULT}" != "0" ]; then
   echo "ERROR: mkdistro.sh failed with error ${MKDISTRO_RESULT}"
@@ -93,7 +94,7 @@ if [ "${MKDISTRO_RESULT}" != "0" ]; then
 fi
 
 #
-# Expand Oozie TAR and create Bigtop Ooozie TAR
+# Expand Oozie TAR and create Bigtop Oozie TAR
 #
 # (TODO: This logic is kind of twisted, revisit.)
 # (TODO: Consider doing the source copy before the build if we can assume a clean checkout.)
