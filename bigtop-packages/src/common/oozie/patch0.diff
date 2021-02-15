@@ -1875,6 +1875,19 @@ index 6d663c375..3be398fbe 100644
  import org.apache.hadoop.hive.shims.HadoopShims.MiniDFSShim;
  import org.apache.hadoop.hive.shims.HadoopShims.MiniMrShim;
  import org.apache.hadoop.hive.shims.ShimLoader;
+diff --git a/pom.xml b/pom.xml
+index 59f871266..1e402034d 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -1417,7 +1417,7 @@
+             <dependency>
+                 <groupId>com.google.guava</groupId>
+                 <artifactId>guava</artifactId>
+-                <version>11.0.2</version>
++                <version>27.0-jre</version>
+             </dependency>
+ 
+             <dependency>
 diff --git a/sharelib/spark/pom.xml b/sharelib/spark/pom.xml
 index 17a538a5e..9735e5365 100644
 --- a/sharelib/spark/pom.xml
