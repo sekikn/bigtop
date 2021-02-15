@@ -18,17 +18,8 @@
 #
 
 export OOZIE_DATA=/var/lib/oozie
-export OOZIE_CATALINA_HOME=/usr/lib/bigtop-tomcat
-export CATALINA_TMPDIR=/var/lib/oozie
-export CATALINA_PID=/var/run/oozie/oozie.pid
-export CATALINA_BASE=/var/lib/oozie/tomcat-deployment
 
 # Set Oozie specific environment variables here.
-
-# Settings for the Embedded Tomcat that runs Oozie
-# Java System properties for Oozie should be specified in this variable
-#
-export CATALINA_OPTS="$CATALINA_OPTS -Xmx1024m"
 
 # Oozie configuration file to load from Oozie configuration directory
 #

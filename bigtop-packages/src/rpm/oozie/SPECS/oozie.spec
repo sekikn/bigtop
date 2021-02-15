@@ -71,7 +71,7 @@ Source11: bigtop.bom
 Requires(pre): /usr/sbin/groupadd, /usr/sbin/useradd
 Requires(post): /sbin/chkconfig
 Requires(preun): /sbin/chkconfig, /sbin/service
-Requires: oozie-client = %{version}, hadoop-client, bigtop-tomcat
+Requires: oozie-client = %{version}, hadoop-client
 BuildArch: noarch
 
 %description
