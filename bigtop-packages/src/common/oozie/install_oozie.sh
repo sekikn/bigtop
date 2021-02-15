@@ -180,7 +180,7 @@ install -d -m 0755 ${SERVER_LIB_DIR}
 install -d -m 0755 ${SERVER_LIB_DIR}/bin
 install -d -m 0755 ${SERVER_LIB_DIR}/lib
 install -d -m 0755 ${DATA_DIR}
-for file in ooziedb.sh oozied.sh oozie-sys.sh oozie-setup.sh ; do
+for file in ooziedb.sh oozied.sh oozie-sys.sh oozie-setup.sh oozie-jetty-server.sh; do
   cp ${BUILD_DIR}/bin/$file ${SERVER_LIB_DIR}/bin
 done
 

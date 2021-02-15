@@ -202,6 +202,7 @@ fi
 %{lib_oozie}/bin/oozie-env.sh
 %{lib_oozie}/bin/oozied.sh
 %{lib_oozie}/bin/ooziedb.sh
+%{lib_oozie}/bin/oozie-jetty-server.sh
 %{lib_oozie}/bin/oozie-setup.sh
 %{lib_oozie}/embedded-oozie-server
 %{lib_oozie}/libtools
