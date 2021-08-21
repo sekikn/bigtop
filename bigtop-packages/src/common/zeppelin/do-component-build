@@ -64,6 +64,13 @@ export MAVEN_OPTS="-Xmx1500m -Xms1500m"
 #   Request the issue to zeppelin upstream, If accepted, remove this workaround.
 sed -i "s/^.*ZEPPELIN_PID=.*$/ZEPPELIN_PID=\"\$\{ZEPPELIN_PID_DIR\}\/zeppelin\-\$\{ZEPPELIN_IDENT_STRING\}\.pid\"/" bin/zeppelin-daemon.sh
 
+if [ $HOSTTYPE = "powerpc64le" ] ; then
+  mvn install:install-file -DgroupId=com.google.protobuf -DartifactId=protoc -Dversion=3.5.1-1 \
+      -Dclassifier=linux-ppcle_64 -Dpackaging=exe -Dfile=/usr/local/protobuf-3.5.1.1/bin/protoc
+fi
+umask 0
+chmod 755 $HOME
+
 mvn $BUILD_OPTS clean package -pl ''$EXCLUDE_INTERPRETERS'' -am
 
 mkdir -p build/dist

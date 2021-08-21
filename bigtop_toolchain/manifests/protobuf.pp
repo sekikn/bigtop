@@ -60,6 +60,26 @@ class bigtop_toolchain::protobuf {
       require => File["/usr/src/protobuf-3.5.1.1/protoc-3.5.1-add-support-for-ppc64le.patch"],
       timeout => 3000
     }
+
+    # BIGTOP-3560. Install the protoc plugin for gRPC Java, which is required by Zeppelin.
+    exec { "download grpc-java 1.28.0":
+      cwd  => "/usr/src",
+      command => "/usr/bin/wget https://github.com/grpc/grpc-java/archive/refs/tags/v1.28.0.tar.gz && /bin/tar xf v1.28.0.tar.gz",
+    }
+
+    file { "/usr/src/grpc-java-1.28.0/grpc-java-1.28.0-add-support-for-ppc64le.patch":
+      source => "puppet:///modules/bigtop_toolchain/grpc-java-1.28.0-add-support-for-ppc64le.patch",
+      require => Exec["download grpc-java 1.28.0"],
+    }
+
+    exec { "install grpc-java 1.28.0":
+      cwd         => "/usr/src/grpc-java-1.28.0",
+      command     => "/usr/bin/patch -p1 < grpc-java-1.28.0-add-support-for-ppc64le.patch && /usr/src/grpc-java-1.28.0/gradlew clean :grpc-compiler:java_pluginExecutable :grpc-compiler:publishToMavenLocal -PskipAndroid=true",
+      environment => ['CXXFLAGS=-I/usr/local/protobuf-3.5.1.1/include', 'LDFLAGS=-L/usr/local/protobuf-3.5.1.1/lib'],
+      path        => ['/usr/local/maven/bin', '/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin'],
+      require     => [Exec["install protobuf 3.5.1.1"], File['/usr/local/maven'], File["/usr/src/grpc-java-1.28.0/grpc-java-1.28.0-add-support-for-ppc64le.patch"]],
+      timeout     => 3000
+    }
   }
 
 }

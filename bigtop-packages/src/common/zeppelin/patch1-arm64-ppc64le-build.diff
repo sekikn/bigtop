@@ -1,5 +1,20 @@
+diff --git a/pom.xml b/pom.xml
+index 176d84d21..e23ae71ba 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -116,8 +116,8 @@
+     <scalacheck.version>1.12.5</scalacheck.version>
+ 
+     <!-- frontend maven plugin related versions-->
+-    <node.version>v12.3.1</node.version>
+-    <npm.version>6.9.0</npm.version>
++    <node.version>v12.11.1</node.version>
++    <npm.version>6.11.3</npm.version>
+     <plugin.frontend.version>1.6</plugin.frontend.version>
+ 
+     <!-- common library versions -->
 diff --git a/zeppelin-jupyter-interpreter/pom.xml b/zeppelin-jupyter-interpreter/pom.xml
-index 90cd1ed87..5dfa977a7 100644
+index b64eb0e94..52957a6bf 100644
 --- a/zeppelin-jupyter-interpreter/pom.xml
 +++ b/zeppelin-jupyter-interpreter/pom.xml
 @@ -36,7 +36,7 @@
@@ -16,7 +31,7 @@ index 90cd1ed87..5dfa977a7 100644
          <artifactId>protobuf-maven-plugin</artifactId>
          <configuration>
 -          <protocArtifact>com.google.protobuf:protoc:3.3.0:exe:${os.detected.classifier}</protocArtifact>
-+          <protocArtifact>com.google.protobuf:protoc:3.5.0:exe:${os.detected.classifier}</protocArtifact>
++          <protocArtifact>com.google.protobuf:protoc:3.5.1-1:exe:${os.detected.classifier}</protocArtifact>
            <pluginId>grpc-java</pluginId>
 -          <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.4.0:exe:${os.detected.classifier}</pluginArtifact>
 +          <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.28.0:exe:${os.detected.classifier}</pluginArtifact>
@@ -1310,9 +1325,18 @@ index a2b253758..1728d9746 100644
        "version": "0.3.0",
        "resolved": "https://registry.npmjs.org/pidtree/-/pidtree-0.3.0.tgz",
 diff --git a/zeppelin-web/package.json b/zeppelin-web/package.json
-index de83a629d..8676b0192 100644
+index de83a629d..619a04d0c 100644
 --- a/zeppelin-web/package.json
 +++ b/zeppelin-web/package.json
+@@ -7,7 +7,7 @@
+   },
+   "scripts": {
+     "clean": "rimraf dist && rimraf .tmp",
+-    "postinstall": "bower install --silent",
++    "postinstall": "bower install --silent --allow-root",
+     "prebuild": "npm-run-all clean lint:once",
+     "build:dist": "npm-run-all prebuild && grunt pre-webpack-dist && webpack && grunt post-webpack-dist",
+     "build:ci": "npm-run-all prebuild && grunt pre-webpack-ci && webpack && grunt post-webpack-dist",
 @@ -18,11 +18,8 @@
      "dev:helium": "HELIUM_BUNDLE_DEV=true webpack-dev-server --hot",
      "dev:watch": "grunt watch-webpack-dev",
@@ -1340,3 +1364,16 @@ index de83a629d..8676b0192 100644
      "load-grunt-tasks": "^0.4.0",
      "mini-css-extract-plugin": "^0.4.4",
      "ng-annotate-loader": "^0.2.0",
+diff --git a/zeppelin-web/pom.xml b/zeppelin-web/pom.xml
+index 54e97053d..2433addd5 100644
+--- a/zeppelin-web/pom.xml
++++ b/zeppelin-web/pom.xml
+@@ -83,7 +83,7 @@
+             </goals>
+             <configuration>
+               <skip>${web.e2e.enabled}</skip>
+-              <arguments>install --no-lockfile</arguments>
++              <arguments>install --no-lockfile --unsafe-perm</arguments>
+             </configuration>
+           </execution>
+ 
