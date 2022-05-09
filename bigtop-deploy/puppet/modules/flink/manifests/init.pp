@@ -49,7 +49,7 @@ class flink {
       hasstatus => true
     }
 
-    Package<| title == 'hadoop-hdfs' |> -> Package['flink-jobmanager']
+    Service<| title == "hadoop-hdfs-namenode" |> -> Package['flink-jobmanager']
   }
 
   class taskmanager {
@@ -67,6 +67,7 @@ class flink {
       hasstatus => true,
     }
 
-    Package<| title == 'hadoop-hdfs' |> -> Package['flink-taskmanager']
+    Service<| title == "hadoop-hdfs-datanode" |> -> Package['flink-taskmanager']
+    Service<| title == "flink-jobmanager" |> -> Package['flink-taskmanager']
   }
 }
