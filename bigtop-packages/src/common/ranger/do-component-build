@@ -19,7 +19,13 @@ set -e
 . `dirname $0`/bigtop.bom
 
 
-mvn clean compile package install -DskipTests -Drat.skip "$@"
+mvn clean compile package install -DskipTests -Drat.skip \
+	-Dhadoop.version=${HADOOP_VERSION}       \
+	-Dhbase.version=${HBASE_VERSION}         \
+	-Dhive.version=${HIVE_VERSION}           \
+	-Dkafka.version=${KAFKA_VERSION}         \
+	-Dzookeeper.version=${ZOOKEEPER_VERSION} \
+	"$@"
 
 mkdir build
 for f in target/ranger*.tar.gz

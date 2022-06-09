@@ -96,6 +96,7 @@ Buildroot: %{_topdir}/INSTALL/%{ranger_name}-%{version}
 Source0: release-%{ranger_name}-%{ranger_base_version}.tar.gz
 Source1: do-component-build
 Source2: install_%{ranger_name}.sh
+#BIGTOP_PATCH_FILES
 Requires: coreutils, /usr/sbin/useradd, /usr/sbin/usermod, /sbin/chkconfig, /sbin/service
 Requires: psmisc
 # Sadly, Sun/Oracle JDK in RPM form doesn't provide libjvm.so, which means we have
@@ -297,6 +298,8 @@ Ranger ATLAS plugnin component runs within namenode to provoide enterprise secur
 
 %prep
 %setup -q -n %{ranger_name}-release-%{ranger_name}-%{ranger_base_version}
+
+#BIGTOP_PATCH_COMMANDS
 
 %build
 bash %{SOURCE1}
