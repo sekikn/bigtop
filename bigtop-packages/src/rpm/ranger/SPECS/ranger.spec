@@ -39,9 +39,9 @@
 
 %if %{!?suse_version:1}0 && %{!?mgaversion:1}0
 %define __os_install_post \
-    /usr/lib/rpm/redhat/brp-compress ; \
-    /usr/lib/rpm/redhat/brp-strip-static-archive %{__strip} ; \
-    /usr/lib/rpm/redhat/brp-strip-comment-note %{__strip} %{__objdump} ; \
+    %{_rpmconfigdir}/brp-compress ; \
+    %{_rpmconfigdir}/brp-strip-static-archive %{__strip} ; \
+    %{_rpmconfigdir}/brp-strip-comment-note %{__strip} %{__objdump} ; \
     /usr/lib/rpm/brp-python-bytecompile ; \
     %{nil}
 
@@ -84,6 +84,9 @@
 # RPM searches perl files for dependancies and this breaks for non packaged perl lib
 # like thrift so disable this
 %define _use_internal_dependency_generator 0
+
+# Disable debuginfo package
+%define debug_package %{nil}
 
 Name: %{ranger_name}
 Version: %{ranger_base_version}
@@ -405,7 +408,7 @@ fi
 %files knox-plugin
 %defattr(-,root,root,755)
 %{usr_lib_ranger}-knox-plugin
-%{knox_home}/ext
+%{knox_home}/lib
 
 %files storm-plugin
 %defattr(-,root,root,755)
@@ -415,7 +418,7 @@ fi
 %files kafka-plugin
 %defattr(-,root,root,755)
 %{usr_lib_ranger}-kafka-plugin
-%{kafka_home}/libs
+%{kafka_home}/lib
 
 %files atlas-plugin
 %defattr(-,root,root,755)

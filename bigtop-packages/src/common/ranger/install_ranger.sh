@@ -150,14 +150,6 @@ then
   [[ "${COMPONENT}" = "kafka-plugin" ]] && RANGER_COMPONENT="kafka"
   [[ "${COMPONENT}" = "atlas-plugin" ]] && RANGER_COMPONENT="atlas"
   [[ "${COMPONENT}" = "knox-plugin" ]] && RANGER_COMPONENT="knox"
-  if [[ "${COMPONENT}" = "knox-plugin" ]]; then
-    lib="ext"
-  elif [[ "${COMPONENT}" = "kafka-plugin" ]]; then
-    lib="libs"
-  else
-    lib="lib"
-  fi
-  install -d -m 0755 ${PREFIX}/usr/lib/${RANGER_COMPONENT}/${lib}
-  cp -r $BUILD_DIR/ranger-*-${COMPONENT}/lib/* ${PREFIX}/usr/lib/${RANGER_COMPONENT}/${lib}/
-  [[ "${COMPONENT}" = "yarn-plugin" ]] || ln -s /usr/share/java/ojdbc6.jar ${PREFIX}/usr/lib/${RANGER_COMPONENT}/${lib}/ojdbc6.jar
+  install -d -m 0755 ${PREFIX}/usr/lib/${RANGER_COMPONENT}/lib
+  cp -r $BUILD_DIR/ranger-*-${COMPONENT}/lib/* ${PREFIX}/usr/lib/${RANGER_COMPONENT}/lib/
 fi
