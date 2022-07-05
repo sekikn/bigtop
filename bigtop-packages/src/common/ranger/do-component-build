@@ -20,13 +20,12 @@ set -e
 
 
 mvn clean compile package install -DskipTests -Drat.skip \
-	-Delasticsearch.version=${ELASTICSEARCH_VERSION}     \
-	-Dhadoop.version=${HADOOP_VERSION}                   \
-	-Dhbase.version=${HBASE_VERSION}                     \
-	-Dhive.version=${HIVE_VERSION}                       \
-	-Dkafka.version=${KAFKA_VERSION}                     \
-	-Dsolr.version=${SOLR_VERSION}                       \
-	-Dzookeeper.version=${ZOOKEEPER_VERSION}             \
+	-Dhadoop.version=${HADOOP_VERSION}       \
+	-Dhbase.version=${HBASE_VERSION}         \
+	-Dhive.version=${HIVE_VERSION}           \
+	-Dkafka.version=${KAFKA_VERSION}         \
+	-Dsolr.version=${SOLR_VERSION}           \
+	-Dzookeeper.version=${ZOOKEEPER_VERSION} \
 	"$@"
 
 mkdir build
